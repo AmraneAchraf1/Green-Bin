@@ -1,0 +1,98 @@
+:root{
+    --main-color-1: #1C1C1C;
+    --main-color-2: #70F45B;
+    --background-1: #F5F5F5;
+    --second-color-2: #2c74b3;
+}
+.body{
+    background-color: var(--background-1);
+}
+.back{
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+}
+.backIcon{
+    width:30px ;
+    height:30px;
+
+}
+.image{
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+}
+.profil{
+    margin-top: 50px;
+    text-align: center;
+}
+.button{
+    margin-top: 30px;
+    background-color:var(--main-color-2);
+    width: 380px;
+    height: 48px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.button p{
+    color: var(--main-color-1);
+    font-size: 16px;
+    font-weight: bold;
+    text-decoration: none;
+}
+.p{
+    text-decoration: none;
+}
+.link{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.li{
+    display: flex;
+    align-items: center;
+    justify-content:start;
+    margin-left: 15px;
+}
+.ic{
+    margin-right: 20px;
+    width: 30px;
+    height: 30px;
+}
+.ul{
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid rgb(128, 128, 128);
+}
+.cancel{
+    text-decoration: none;
+}
+.cancel h3{
+    color: red;
+    text-decoration: none;
+    margin: 20px;
+}
+.lin{
+    text-decoration: none;
+}
+.labInp{
+margin-top: 20px;
+}
+.lab{
+    color: #4F4F51;
+    display: flex;
+    padding-left: 20px;
+    margin-bottom: -5px;
+}
+.inp{
+    z-index: 1;
+    font-size: 20px;
+    border: 0;
+    border-bottom: 1px solid #4F4F51;
+    background-color: #F4F4F4;
+    width: 370px;
+    height: 67px;   
+}

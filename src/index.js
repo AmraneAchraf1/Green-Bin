@@ -7,6 +7,7 @@ import router from "./routes/router";
 import { ThemeProvider } from "@emotion/react";
 import theme from "./theme/appTheme";
 import { CssBaseline } from "@mui/material";
+import FadeTransition from "./components/FadeTransition";
 // styles
 import "../src/styles/index.css";
 
@@ -16,7 +17,9 @@ root.render(
   <Provider store={store}>
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <RouterProvider router={router} />
+      <FadeTransition>
+        <RouterProvider router={router} />
+      </FadeTransition>
     </ThemeProvider>
   </Provider>
 );

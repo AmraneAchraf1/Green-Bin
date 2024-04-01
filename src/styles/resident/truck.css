@@ -1,0 +1,46 @@
+.all{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.truck{
+    background-color: #F5F5F5;
+    width: 400px;
+    height: 80px;
+    border-radius: 8px;
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+.time{
+    margin-right: 7px;
+    text-align: center;
+}
+.time p{
+    color: #8E8E8E;
+    margin: -3px;
+}
+.hello{
+    width: 190px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.img{
+    margin-right: 10px;
+}
+.bold{
+    font-weight: bold;
+}
+.title h2{
+    font-size: 16px;
+    margin-bottom: -20px;
+    font-family: exo2;
+}
+@font-face {
+    font-family: exo2;
+    src: url(../../fonts/Exo2-VariableFont_wght.ttf);
+}
