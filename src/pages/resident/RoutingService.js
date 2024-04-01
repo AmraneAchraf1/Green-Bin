@@ -27,11 +27,11 @@ export const findNearestBinPositions = (currentPosition, binPositions) => {
 // Sort bin positions by distance
   distances.sort((a, b) => a.distance - b.distance);
 
-// Return the 5 nearest bin positions
+S// Return the 5 nearest bin positions
   return distances.slice(0, 5);
 };
 
-  const calculateDistance = (point1, point2) => {
+const calculateDistance = (point1, point2) => {
     const earthRadiusKm = 6371; // Radius of the Earth in kilometers
     const [lat1, lon1] = point1;
     const [lat2, lon2] = point2;

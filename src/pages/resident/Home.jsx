@@ -30,7 +30,6 @@ const Home=()=>{
             //console.log(extractedLatLonArray)
             // Dispatch action to set bins data in Redux store
             dispatch(resetUserBins(extractedLatLonArray))
-            console.log(extractedLatLonArray)
           })
           .catch(error => {
             console.error('Error fetching data:', error);
@@ -38,7 +37,6 @@ const Home=()=>{
       }
     getBins()
     
-    console.log(user[0])
    }, [dispatch]); 
 
  
