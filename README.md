@@ -7,7 +7,7 @@ To install GreenBin, follow these steps:
 3. setup .env file by running `copy .env.example .env` in your terminal and use REACT_APP_API_URL as the base url for the api
 4. Run the app by running `npm start`
 5. Open the app in your browser at `http://localhost:3000`
-
+²
 ## Technologies
 - React
 - Redux

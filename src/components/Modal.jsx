@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { IoMdClose } from "react-icons/io";
 import "../styles/resident/menu.css"
 import Bin from "./Bin";
-import axios from "axios";
+import axiosInstance from "../Axios";
 const Modal = ({ isModalOpen,onClose}) => {
   const modalRef = useRef(null);
   const [binsINfo,setBinsInfo] = useState([])
@@ -10,15 +10,12 @@ useEffect(()=>{
   getBins();
 },[])
   const getBins=()=>{
-    axios.get('http://192.168.12.17:8000/api/bins') .then(response => {
-        // Assuming the response data is an array
-        const mockBins=response.data;
-        setBinsInfo(mockBins);
-        
-      })
-      .catch(error => {
-        console.error('Error fetching data:', error);
-    });
+    axiosInstance.get("/bins").then((res)=>{
+      setBinsInfo(res.data);
+    }).catch((err)=>{
+      console.log(err);
+    })
+    
 }
   const handleOutsideClick = (event) => {
     if (modalRef.current && !modalRef.current.contains(event.target)) {
