@@ -5,7 +5,7 @@ import '../styles/resident/map.css'
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import LeafletRoutingMachine from './LeafletRoutingMachine';
 import { useSelector } from 'react-redux';
-import { binSelectors,userSelectors } from '../store/selectors';
+import { userSelectors } from '../store/selectors';
 //import {  iconPerson  } from './IconPerson';
 function Map({nearsetPosition,shouldRenderMarker }) {
   const binsData = useSelector(state => state.bins.data);
@@ -26,18 +26,22 @@ function Map({nearsetPosition,shouldRenderMarker }) {
     console.log(userLocation)
     console.log(nearsetPosition)
   }
+ 
+
 /**/
   return (
-    <MapContainer center={[32.886023, -6.9208655]} zoom={13} style={{ height: "100%", width: "100%" }}>
+    <MapContainer 
+      center={[32.886023, -6.9208655]}
+     zoom={13} style={{ height: "100%", width: "100%" }}>
       <TileLayer
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
       />
       {/*{!test && (drawRoute(nearsetPosition))}*/}
        {binsData.map((bin, index) => (
-        <div  key={index}>
-          <Marker position={bin} icon={customIcon} >
-            <Popup>{bin}</Popup>
+        <div >
+          <Marker key={index} position={bin} icon={customIcon} >
+            <Popup onClick={drowRoute}>{bin}</Popup>
           </Marker>
         </div>
       ))}

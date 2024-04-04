@@ -12,11 +12,8 @@ const LeafletRoutingMachine=({currentP,nearsetP})=>{
               L.latLng(currentP),
               L.latLng(nearsetP)
             ],
-            routeWhileDragging: false,
+            routeWhileDragging: true,
             show: false ,// Hide markers
-            routeDragInterval:false,
-            draggableWaypoints: false,
-            
             lineOptions:{
                 styles:[
                     {
