@@ -23,6 +23,8 @@ function Map({nearsetPosition,shouldRenderMarker }) {
 
   const drowRoute=()=>{
     console.log("drow")
+    console.log(userLocation)
+    console.log(nearsetPosition)
   }
 /**/
   return (
@@ -33,9 +35,9 @@ function Map({nearsetPosition,shouldRenderMarker }) {
       />
       {/*{!test && (drawRoute(nearsetPosition))}*/}
        {binsData.map((bin, index) => (
-        <div >
-          <Marker key={index} position={bin} icon={customIcon} >
-            <Popup onClick={drowRoute}>{bin}</Popup>
+        <div  key={index}>
+          <Marker position={bin} icon={customIcon} >
+            <Popup>{bin}</Popup>
           </Marker>
         </div>
       ))}

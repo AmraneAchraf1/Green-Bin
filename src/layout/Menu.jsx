@@ -9,7 +9,7 @@ import Modal from '../components/Modal'
 import { useDispatch, useSelector } from 'react-redux';
 import { userSelectors ,binSelectors} from '../store/selectors';
 
-const Menu=({onNerset})=>{
+const Menu=({onNerset,token})=>{
     const user  = useSelector(state => state.user.data)
     const binsData = useSelector(state => state.bins.data);
     const [isModalOpen, setIsModalOpen] = useState(false)
@@ -38,6 +38,7 @@ const Menu=({onNerset})=>{
             <Modal
                 isModalOpen={isModalOpen}
                 onClose={closeModal}
+                token={token}
                 />
         </section>  
         </div>

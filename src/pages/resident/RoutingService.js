@@ -27,7 +27,7 @@ export const findNearestBinPositions = (currentPosition, binPositions) => {
 // Sort bin positions by distance
   distances.sort((a, b) => a.distance - b.distance);
 
-S// Return the 5 nearest bin positions
+// Return the 5 nearest bin positions
   return distances.slice(0, 5);
 };
 
