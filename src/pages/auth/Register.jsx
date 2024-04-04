@@ -4,6 +4,7 @@ import image1 from "../../images/Group.png"
 import "../../styles/resident/login.css"
 import axiosInstance from "../../Axios"
 import Loading from "../../components/Loading"
+import axios from "axios"
 const Register =()=>{
   const [updatedLocation, setUpdatedLocation] = useState(null);
 
@@ -37,34 +38,6 @@ const Register =()=>{
     longitude:"-3.038240",
     image:image1,
 })
-// Example usage
-const userData = {
-  name: 'John Doe',
-  email: 'johndoe@example.com',
-  password: 'password123',
-  address: '123 Main St',
-  city: 'New York',
-  latitude: '40.7128',
-  longitude: '-74.0060',
-  image: image1 
-};
- // Create form data object
-  const formData = new FormData();
-  formData.append('name', userData.name);
-  formData.append('email', userData.email);
-  formData.append('password', userData.password);
-  formData.append('address', userData.address);
-  formData.append('city', userData.city);
-  formData.append('latitude', userData.latitude);
-  formData.append('longitude', userData.longitude);
-  formData.append('image', userData.image);
-const test=()=>{
-  const formDataObject = {};
-  for (let [key, value] of formData.entries()) {
-    formDataObject[key] = value;
-  }
-  console.log(formDataObject)
-}
 function handelFormChange(e){
     setForm({...form, [e.target.name] : e.target.value});
 }
@@ -75,26 +48,46 @@ const [loading,setLoading]=useState(false);
 
 const [err,setErr]=useState("");
 // handel form submit
+
+
+
+
 async function submit(e){
     e.preventDefault();
     setLoading(true);
-    try{
-      const res=await axiosInstance.post('/register',formData,{
-        headers: {
-          'Content-Type': 'multipart/form-data'
-        }
-      });
-        setLoading(false);
-        console.log(res)
-    }catch(err){
-    setLoading(false);
 
-        if(err.response.status===422){
-            setErr("Email is already been taken");
-        }else{
-            setErr("internal server ERR");
-        }
+    // covert image1 to blob
+    const response = await fetch(image1);
+    const blob = await response.blob();
+    const formData = new FormData();
+
+    formData.append('name', form.name);
+    formData.append('email', form.email);
+    formData.append('password', form.password);
+    formData.append('address', form.address);
+    formData.append('city', form.city);
+    formData.append('latitude', form.latitude);
+    formData.append('longitude', form.longitude);
+    formData.append('image', blob);
+
+    try {
+      const response = await axiosInstance.post('/register', formData, {
+        headers: { 
+          'Content-Type': 'multipart/form-data',
+        },
+      }
+      );
+      
+      console.log('response', response);
+      setLoading(false);
+    } catch (error) {
+      console.error('Error registering:', error);
+      setErr(error.response.data.message);
+      setLoading(false);
     }
+
+
+
 }
     return (
       <>
