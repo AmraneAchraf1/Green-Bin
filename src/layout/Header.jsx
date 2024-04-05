@@ -3,6 +3,7 @@ import ima2 from "../images/cloche.png"
 import "../styles/resident/header.css"
 import Truck from "../components/Truck"
 const Header=()=>{
+
     return (
         <>
         <div className="header">

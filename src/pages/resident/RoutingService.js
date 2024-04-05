@@ -31,7 +31,7 @@ export const findNearestBinPositions = (currentPosition, binPositions) => {
   return distances.slice(0, 5);
 };
 
-  const calculateDistance = (point1, point2) => {
+const calculateDistance = (point1, point2) => {
     const earthRadiusKm = 6371; // Radius of the Earth in kilometers
     const [lat1, lon1] = point1;
     const [lat2, lon2] = point2;

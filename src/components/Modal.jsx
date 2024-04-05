@@ -36,10 +36,9 @@ useEffect(()=>{
        <div className="exit-icon text-end">
             <div className="blign"><div className="lign"></div></div>
             {binsINfo.map((bin, index) => (
-               <dev key={index}>
-                <Bin binsinfo={bin} />
-               </dev>
-              
+              <div key={index}>
+                <Bin binsinfo={bin}  />
+              </div>
             ))}
        </div>
       

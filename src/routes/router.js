@@ -6,16 +6,29 @@ import Profil from "../pages/resident/Profil";
 import EditProful from "../pages/resident/EditProfile";
 import Homec from "../pages/collector/Homec";
 
+
+
+
 const router = createBrowserRouter([
   {
     path: "/",
     element: <MainLayout />,
     children: [
-      {
-        path: "/",
-        index: true,
-        element: <Test />,
-      },
+      // {
+      //   path: "/",
+      //   index: true,
+      //   element: <Welcome />,
+      // },
+      // {
+      //   path: "/login",
+      //   index: true,
+      //   element: <Login />,
+      // },
+      // {
+      //   path: "/register",
+      //   index: true,
+      //   element: <Register />,
+      // },
       {
         path: "/home",
         index: true,
