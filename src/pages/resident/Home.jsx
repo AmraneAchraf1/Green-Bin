@@ -11,6 +11,7 @@ import "../../styles/resident/home.css"
 import { resetUserBins } from "../../store/reducer/ui/binSlice";
 import { setUserLocation, showLoaction } from "../../store/reducer/ui/userSlise";
 import axiosInstance from "../../Axios";
+import axios from "axios";
 const Home=()=>{
     const dispatch = useDispatch();    
     const binsData = useSelector(state => state.bins.data);
@@ -24,7 +25,11 @@ const Home=()=>{
     useEffect(() => {
       // Function to execute when the component mounts
       const getBins= async ()=>{
-        axiosInstance.get("/bins").then((res)=>{
+        axios.get(`http://localhost:8000/api/bins`,{headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json",
+          "Authorization": "Bearer 10|z0kukBkQL8pkr8x4UZ5ofLznvuRqm8D9EGa1QsUac7ad2a61",
+        }}).then((res)=>{
           // Assuming the response data is an array
           const mockBins=res.data;
           const extractedLatLonArray = mockBins.map(bin => [bin.latitude, bin.longitude]);

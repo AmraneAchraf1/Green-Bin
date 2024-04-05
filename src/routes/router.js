@@ -4,6 +4,7 @@ import Test from "../pages/Test";
 import Home from "../pages/resident/Home";
 import Profil from "../pages/resident/Profil";
 import EditProful from "../pages/resident/EditProfile";
+import Homec from "../pages/collector/Homec";
 
 const router = createBrowserRouter([
   {
@@ -29,7 +30,13 @@ const router = createBrowserRouter([
         path: "/profile/edit",
         index: true,
         element: <EditProful />,
+
       },
+      {
+        path:"/collector",
+        index: true,
+        element:<Homec />
+      }
     ],
   },
 ]);

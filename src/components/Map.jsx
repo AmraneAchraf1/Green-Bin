@@ -26,7 +26,8 @@ function Map({nearsetPosition,shouldRenderMarker }) {
   }
 /**/
   return (
-    <MapContainer center={[32.886023, -6.9208655]} zoom={13} style={{ height: "100%", width: "100%" }}>
+    <MapContainer center={[34.06650110272195, -6.761945197993900
+    ]} zoom={13} style={{ height: "100%", width: "100%" }}>
       <TileLayer
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
