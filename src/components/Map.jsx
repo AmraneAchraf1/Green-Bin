@@ -15,6 +15,7 @@ function Map({ shouldRenderMarker }) {
   const [binsInfo, setBinsInfo] = useState([]);
   const userLocation = useSelector(userSelectors);
   const [opt,setOpt] = useState([]);
+  const [way,setWay] = useState([]);
 
   const customIcon = L.icon({
     iconUrl: require("../images/poubelle.png"),
@@ -87,8 +88,11 @@ function Map({ shouldRenderMarker }) {
     //   waypoints.unshift(L.latLng(userLocation[0], userLocation[1]));
     // }
     console.log(waypoints)
+    
     return waypoints;
   };
+
+  
 
   return (
     <MapContainer
@@ -110,8 +114,8 @@ function Map({ shouldRenderMarker }) {
       {shouldRenderMarker && userLocation !== null && (
         <Marker position={userLocation} icon={currentIcon}></Marker>
       )}
-      {binsInfo.length > 0 && (
-        <LeafletRoutingMachinec
+      {binsInfo.length > 0 && calculateWaypoints().length > 0 &&(
+        <LeafletRoutingMachine
           waypoints={calculateWaypoints()}
           // currentP={userLocation}
         />

@@ -5,6 +5,7 @@ import Home from "../pages/resident/Home";
 import Profil from "../pages/resident/Profil";
 import EditProful from "../pages/resident/EditProfile";
 import Homec from "../pages/collector/Homec";
+import Profilc from "../pages/collector/Profilec";
 
 
 
@@ -49,6 +50,12 @@ const router = createBrowserRouter([
         path:"/collector",
         index: true,
         element:<Homec />
+      },
+      {
+        path:"/profile-c",
+        index: true,
+        element: <Profilc />
+
       }
     ],
   },
