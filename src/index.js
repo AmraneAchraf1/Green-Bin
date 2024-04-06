@@ -8,6 +8,7 @@ import { ThemeProvider } from "@emotion/react";
 import theme from "./theme/appTheme";
 import { CssBaseline } from "@mui/material";
 import FadeTransition from "./components/FadeTransition";
+
 // styles
 import "../src/styles/index.css";
 

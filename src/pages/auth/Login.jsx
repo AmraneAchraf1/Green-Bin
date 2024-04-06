@@ -81,7 +81,7 @@ const Login =()=>{
               <input type="email" name="email" id="" placeholder="Email"  value={form.email} onChange={handelChangeForm} />
             </div>
             <div className="input">
-              <input type="text" id="" placeholder="Password"  value={form.password} name="password" onChange={handelChangeForm}/>
+              <input type="password" id="" placeholder="Password"  value={form.password} name="password" onChange={handelChangeForm}/>
             </div>
             <div className="forget">
               <p>Forget Password</p>

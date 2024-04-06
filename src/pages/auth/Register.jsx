@@ -4,17 +4,19 @@ import image1 from "../../images/Group.png"
 import "../../styles/resident/login.css"
 import axiosInstance from "../../Axios"
 import Loading from "../../components/Loading"
-import axios from "axios"
+import profil from "../../images/profil.png"
 const Register =()=>{
-  const [updatedLocation, setUpdatedLocation] = useState(null);
+  const [latitude, setLatitude] = useState(null);
+  const [longitude, setLongitude] = useState(null);
+
 
   useEffect(() => {
     const getCurrentPosition = setInterval(() => {
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(
           position => {
-            const userLocation = [position.coords.latitude, position.coords.longitude];
-            setUpdatedLocation(userLocation)
+            setLatitude(position.coords.latitude);
+            setLongitude(position.coords.longitude);
           },
           error => {
             console.error('Error getting user location:', error);
@@ -34,9 +36,9 @@ const Register =()=>{
     password:"",
     address:"",
     city:"salé rabat",
-    latitude:"33.989811",
-    longitude:"-3.038240",
-    image:image1,
+    latitude:latitude,
+    longitude:longitude,
+    image:profil,
 })
 function handelFormChange(e){
     setForm({...form, [e.target.name] : e.target.value});
@@ -55,7 +57,7 @@ const [err,setErr]=useState("");
 async function submit(e){
     e.preventDefault();
     setLoading(true);
-
+    console.log(latitude +" "+ longitude)
     // covert image1 to blob
     const response = await fetch(image1);
     const blob = await response.blob();
@@ -66,8 +68,8 @@ async function submit(e){
     formData.append('password', form.password);
     formData.append('address', form.address);
     formData.append('city', form.city);
-    formData.append('latitude', form.latitude);
-    formData.append('longitude', form.longitude);
+    formData.append('latitude', latitude);
+    formData.append('longitude', longitude);
     formData.append('image', blob);
 
     try {
@@ -77,9 +79,10 @@ async function submit(e){
         },
       }
       );
-      
       console.log('response', response);
       setLoading(false);
+      window.location.href = '/login';
+
     } catch (error) {
       console.error('Error registering:', error);
       setErr(error.response.data.message);

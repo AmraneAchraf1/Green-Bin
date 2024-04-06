@@ -11,16 +11,18 @@ import { setUserLocation, showLoaction } from "../../store/reducer/ui/userSlise"
 import axiosInstance from "../../Axios";
 import { setToken, setUser } from "../../store/reducer/ui/userInformationSlice";
 import { userSelectors } from "../../store/selectors";
+import Loading from "../../components/Loading";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 const Home=()=>{
     const dispatch = useDispatch();    
-    const [userInfo,setUserInfo] = useState(null)
     const binsData = useSelector(state => state.bins.data);
     const [nearestPosition, setNearestPosition] = useState(null); // Initialize with null
     const [shouldRenderMarker, setShouldRenderMarker] = useState(false);
     const [updatedLocation, setUpdatedLocation] = useState(null);
     const userLocation = useSelector(userSelectors);
 
-    //---------------------get the Bins Postion -------------------
     // Function to get a cookie value by name
     const getCookie = (name) => {
       const cookieValue = document.cookie.match(`(^|;)\\s*${name}\\s*=\\s*([^;]+)`);
@@ -30,7 +32,7 @@ const Home=()=>{
 
     //---------------------get the  user --------------------
 
-   useEffect(()=>{
+    useEffect(()=>{
         getUser();
     },[])
     const getUser =()=>{
@@ -42,11 +44,11 @@ const Home=()=>{
         }).then((res)=>{
           console.log(res)
           dispatch(setToken(res.data.token))
-          dispatch(setUser(res.data.user));
+          dispatch(setUser(res.data));
         }).catch((err)=>{
           console.log(err);
         })
-      }
+    }
 
        //---------------------get the  bins --------------------
 
@@ -63,7 +65,6 @@ const Home=()=>{
           // Assuming the response data is an array
           const mockBins=res.data;
           const extractedLatLonArray = mockBins.map(bin => [bin.latitude, bin.longitude]);
-          //console.log(extractedLatLonArray)
           // Dispatch action to set bins data in Redux store
           dispatch(resetUserBins(extractedLatLonArray))
           console.log(extractedLatLonArray)
@@ -92,7 +93,7 @@ const Home=()=>{
       } else {
         console.error('Geolocation is not supported by this browser.');
       }
-    }, 10000); // 5000 milliseconds = 5 seconds
+    }, 2000); // 5000 milliseconds = 5 seconds
 
     // Clean up the interval to prevent memory leaks
     return () => clearInterval(getCurrentPosition);
@@ -104,20 +105,26 @@ const Home=()=>{
       setShouldRenderMarker(true);
     }
   }, [dispatch, updatedLocation]);
-
+   //---------------------found the nearset position --------------------
     const nearset =()=>{
       //findNearestBinPositions(currentPosition,bins)
       const nearestPo = findNearestPosition(userLocation, binsData);
       setNearestPosition(nearestPo)
       console.log(nearestPo)
     }
+   //--------------------- the notification --------------------
+    const notification=()=>{
+      console.log("hello")
+      toast("Wow so easy!");
+    }
     return (
         <div>
-            <Header />
-            <div className="mp">
-                <Map nearsetPosition={nearestPosition}  shouldRenderMarker={shouldRenderMarker} />
+            <Header noti={notification}/>
+           <div className="mp">
+           {updatedLocation && userLocation  ? (<Map nearsetPosition={nearestPosition}  shouldRenderMarker={shouldRenderMarker} currentP={updatedLocation} />):<Loading />}
             </div>
             <div className="menu"><Menu onNerset={nearset} bins={binsData} token={token}/></div>
+            <ToastContainer />
         </div>
     )
 }

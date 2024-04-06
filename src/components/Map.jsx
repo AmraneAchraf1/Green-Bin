@@ -7,7 +7,7 @@ import LeafletRoutingMachine from "./LeafletRoutingMachine";
 import { useSelector } from "react-redux";
 import { userSelectors } from "../store/selectors";
 //import {  iconPerson  } from './IconPerson';
-function Map({ nearsetPosition, shouldRenderMarker }) {
+function Map({ nearsetPosition, shouldRenderMarker,currentP }) {
   const binsData = useSelector((state) => state.bins.data);
   const userLocation = useSelector(userSelectors);
   //const nearestPoint = [32.886023, -6.9208655];
@@ -30,7 +30,7 @@ function Map({ nearsetPosition, shouldRenderMarker }) {
   /**/
   return (
     <MapContainer
-      center={[32.886023, -6.9208655]}
+      center={currentP}
       zoom={13}
       style={{ height: "100%", width: "100%" }}
     >

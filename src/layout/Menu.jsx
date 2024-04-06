@@ -6,8 +6,7 @@ import { MdPersonOutline } from "react-icons/md";
 import { Link } from "react-router-dom";
 import buy from "../data.json"
 import Modal from '../components/Modal'
-import { useDispatch, useSelector } from 'react-redux';
-import { userSelectors ,binSelectors} from '../store/selectors';
+import { useDispatch, useSelector,bins } from 'react-redux';
 
 const Menu=({onNerset,token})=>{
     const user  = useSelector(state => state.user.data)

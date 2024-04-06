@@ -50,3 +50,21 @@ const degreesToRadians = (degrees) => {
     return degrees * Math.PI / 180;
 };
  
+ const calculateTime = (distance, walkingSpeed) =>{
+  // Convert speed from kilometers per hour to kilometers per millisecond
+  const speedKmPerMs = walkingSpeed / 3600000; // 3600000 milliseconds in an hour
+
+  // Calculate time in milliseconds
+  const timeMs = distance / speedKmPerMs;
+
+  // Convert time from milliseconds to minutes
+  const timeMinutes = timeMs / (1000 * 60);
+
+  return timeMinutes; // Time in minutes
+}
+
+// Example usage:
+const distance = 10; // Distance in kilometers
+const walkingSpeed = 5; // Average walking speed in kilometers per hour
+const time = calculateTime(distance, walkingSpeed);
+console.log("Time:", time, "minutes");
