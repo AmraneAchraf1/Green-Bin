@@ -1,47 +1,59 @@
-import Menu from "../../layout/Menu";
+import Menuc from "../../layout/Menuc";
 import Header from "../../layout/Header";
-import Map from "../../components/Map";
+import Mapc from "./Mapc";
 import React, { useEffect, useState } from "react";
+import {findNearestPosition,findNearestBinPositions} from "../resident/RoutingService"
+
 import { useDispatch, useSelector } from "react-redux";
-import { binSelectors } from "../../store/selectors";
-import { prevar } from "./OptPre"; // Import the prevar function from OptPre.js
-import axiosInstance from "../../Axios";
+import { userSelectors ,binSelectors} from "../../store/selectors";
+// styles
+import "../../styles/resident/home.css"
+import { resetUserBins } from "../../store/reducer/ui/binSlice";
+import { setUserLocation, showLoaction } from "../../store/reducer/ui/userSlise";
 import axios from "axios";
+const Homec=()=>{
+    const dispatch = useDispatch();    
+    const binsData = useSelector(state => state.bins.data);
+    const user = useSelector(userSelectors)
+    const [nearestPosition, setNearestPosition] = useState(null); // Initialize with null
+    const [shouldRenderMarker, setShouldRenderMarker] = useState(false);
+    const [updatedLocation, setUpdatedLocation] = useState(null);
 
-const Homec = () => {
-  const dispatch = useDispatch();
-  const binsData = useSelector(state => state.bins.data);
-  const [updatedLocation, setUpdatedLocation] = useState(null);
-  const [opt,setOpt] = useState([]);
+    //---------------------get the Bins Postion -------------------
 
-  useEffect(() => {
-    const getBins = async () => {
-      try {
-        const res = await axios.get(`http://localhost:8000/api/bins`, {
-          headers: {
-            "Content-Type": "application/json",
-            "Accept": "application/json",
-            "Authorization": "Bearer 10|z0kukBkQL8pkr8x4UZ5ofLznvuRqm8D9EGa1QsUac7ad2a61"
-          }
-        });
-        const binsData = res.data;
-        console.log(binsData)
-        dispatch({ type: "SET_BINS_DATA", payload: binsData });
-      } catch (error) {
-        console.error("Error fetching bins:", error);
+    useEffect(() => {
+      // Function to execute when the component mounts
+      const getBins= async ()=>{
+        axios.get(`http://localhost:8000/api/bins`,{headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json",
+          "Authorization": "Bearer 12|2stEoziOCwxtXxQkFjTlJXxdmzHiLyCDs45yukaNd7d70344",
+        }}).then((res)=>{
+          // Assuming the response data is an array
+          const mockBins=res.data;
+          const extractedLatLonArray = mockBins.map(bin => [bin.latitude, bin.longitude]);
+          //console.log(extractedLatLonArray)
+          // Dispatch action to set bins data in Redux store
+          dispatch(resetUserBins(extractedLatLonArray))
+          console.log(extractedLatLonArray)
+        }).catch((err)=>{
+          console.log(err);
+        })
       }
-    };
+    getBins()
+    
+    console.log(user[0])
+   }, [dispatch]); 
 
-    getBins();
-  }, [dispatch]);
-
+ 
+   //---------------------get the current Postion --------------------
   useEffect(() => {
     const getCurrentPosition = setInterval(() => {
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(
           position => {
             const userLocation = [position.coords.latitude, position.coords.longitude];
-            setUpdatedLocation(userLocation);
+            setUpdatedLocation(userLocation)
           },
           error => {
             console.error('Error getting user location:', error);
@@ -54,48 +66,32 @@ const Homec = () => {
 
     // Clean up the interval to prevent memory leaks
     return () => clearInterval(getCurrentPosition);
-  }, []);
-
+  }, []); 
   useEffect(() => {
+    // Dispatch the updated location to the Redux store
     if (updatedLocation) {
-      dispatch({ type: "SET_USER_LOCATION", payload: updatedLocation });
+      dispatch(setUserLocation(updatedLocation));
+      setShouldRenderMarker(true);
     }
   }, [dispatch, updatedLocation]);
 
-   const optimizeRoute = async () => {
-    const { distanceMatrix, timeMatrix, sizeMatrix } = prevar(binsData);
-    const parameters = [1, 1, 1, 1, 0.1];
-    const numIterations = 100;
-    const numRuns = 20;
-
-    try {
-      const res = await axios.post(`http://localhost:8000/api/optimize`, {
-        distanceMatrix,
-        garbageSize: sizeMatrix,
-        timeMatrix,
-        truckCapacity: 1000,
-        parameters,
-        numIterations,
-        numRuns
-      });
-      
-      const optimizedRoute = res.data;
-      setOpt(optimizedRoute);
-      console.log("Optimized Route:", optimizedRoute);
-    } catch (error) {
-      console.error("Error optimizing route:", error);
+   
+    const nearset =()=>{
+      //findNearestBinPositions(currentPosition,bins)
+      const nearestPo = findNearestPosition(user, binsData);
+      setNearestPosition(nearestPo)
+      console.log(nearestPo)
     }
-  };
+   
 
-  return (
-    <div>
-      <Header />
-      <div className="mp">
-        {binsData != null ? <Map bins={binsData} order={opt}/> : null}
-      </div> 
-      <div className="menu"><Menu optimizeRoute={optimizeRoute} bins={binsData}/></div>
-    </div>
-  );
-};
-
+    return (
+        <div>
+            <Header />
+            <div className="mp">
+                {user != null ? <Mapc nearsetPosition={nearestPosition}  shouldRenderMarker={shouldRenderMarker} />:<></>}
+            </div>
+            <div className="menu"><Menuc onNerset={nearset} bins={binsData}/></div>
+        </div>
+    )
+}
 export default Homec;

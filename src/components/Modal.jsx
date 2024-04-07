@@ -3,19 +3,20 @@ import { IoMdClose } from "react-icons/io";
 import "../styles/resident/menu.css"
 import Bin from "./Bin";
 import axiosInstance from "../Axios";
-import axios from "axios";
-const Modal = ({ isModalOpen,onClose}) => {
+import { useSelector } from "react-redux";
+const Modal = ({ isModalOpen,onClose,token}) => {
   const modalRef = useRef(null);
   const [binsINfo,setBinsInfo] = useState([])
 useEffect(()=>{
   getBins();
 },[])
   const getBins=()=>{
-    axios.get(`http://localhost:8000/api/bins`,{headers: {
-      "Content-Type": "application/json",
-      "Accept": "application/json",
-      "Authorization": "Bearer 10|z0kukBkQL8pkr8x4UZ5ofLznvuRqm8D9EGa1QsUac7ad2a61",
-    }}).then((res)=>{
+    axiosInstance.get("/bins",{
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      }
+    }).then((res)=>{
       setBinsInfo(res.data);
     }).catch((err)=>{
       console.log(err);
@@ -36,10 +37,9 @@ useEffect(()=>{
        <div className="exit-icon text-end">
             <div className="blign"><div className="lign"></div></div>
             {binsINfo.map((bin, index) => (
-               <dev key={index}>
-                <Bin binsinfo={bin} />
-               </dev>
-              
+              <div key={index}>
+                <Bin binsinfo={bin}  />
+              </div>
             ))}
        </div>
       

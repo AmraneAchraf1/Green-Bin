@@ -1,10 +1,38 @@
-import React from "react";
+import React ,{useState, useEffect} from "react";
 import { Link } from "react-router-dom";
 import "../../styles/resident/profil.css"
 import profil from "../../images/profil.jpg"
+import axiosInstance from "../../Axios";
+import Loading from "../../components/Loading";
 const EditProful=()=>{
+    const [userInfo,setUserInfo] =useState(null) ;
+
+    // Function to get a cookie value by name
+    const getCookie = (name) => {
+        const cookieValue = document.cookie.match(`(^|;)\\s*${name}\\s*=\\s*([^;]+)`);
+        return cookieValue ? cookieValue.pop() : '';
+      };
+      const token = getCookie('token');
+  
+   useEffect(()=>{
+        getUser();
+    },[])
+    const getUser =()=>{
+        axiosInstance.get("/user",{
+        headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
+        }
+        }).then((res)=>{     
+        console.log(res)
+        setUserInfo(res.data)
+        }).catch((err)=>{
+        console.log(err);
+        })
+    }
     return (
 <div className="body">
+    {userInfo ?(<>
             <div>
                 <Link to="/profile" className="cancel">
                     <h3>Cancel</h3>
@@ -17,19 +45,19 @@ const EditProful=()=>{
                 <form>
                    <div className="labInp">
                         <label htmlFor="" className="lab">Name</label>
-                        <input type="text" className="inp" value="Mohamed Ali"/>
+                        <input type="text" className="inp" name="name" value={userInfo.name}/>
                    </div>
                    <div className="labInp">
-                        <label htmlFor="" className="lab">Username</label>
-                        <input type="text" className="inp" value="mohamed_ali"/>
+                        <label htmlFor="" className="lab">adress</label>
+                        <input type="text" className="inp" value={userInfo.address}/>
                    </div>
                    <div className="labInp">
-                        <label htmlFor="" className="lab">Phone</label>
-                        <input type="text" className="inp" value="+212 787 999 009"/>
+                        <label htmlFor="" className="lab">City</label>
+                        <input type="text" className="inp" value={userInfo.city}/>
                    </div>
                    <div className="labInp">
                         <label htmlFor="" className="lab">Email</label>
-                        <input type="text" className="inp" value="mohamedAli@gmail.com"/>
+                        <input type="text" className="inp" value={userInfo.email} onlyread/>
                    </div>
                 </form>
                 <div className="link">
@@ -39,8 +67,7 @@ const EditProful=()=>{
                         </div>
                     </Link>
                 </div>
-             </div>
-            
+             </div></>):<Loading />}
         </div>
     )
 

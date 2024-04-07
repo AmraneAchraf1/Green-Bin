@@ -4,11 +4,12 @@ import "leaflet-routing-machine";
 import "leaflet-routing-machine/dist/leaflet-routing-machine.css";
 import { useMap } from "react-leaflet";
 import { color } from "framer-motion";
-const LeafletRoutingMachine = ({ currentP, nearsetP }) => {
+const LeafletRoutingMachinec = ({ waypoints }) => {
   const map = useMap();
   useEffect(() => {
+    if (waypoints ) {
     L.Routing.control({
-      waypoints: [L.latLng(currentP), L.latLng(nearsetP)],
+    waypoints: waypoints,
 
       routeWhileDragging: false,
       show: false, // Hide markers
@@ -23,8 +24,10 @@ const LeafletRoutingMachine = ({ currentP, nearsetP }) => {
           },
         ],
       },
-    }).addTo(map);
+    })
+    .addTo(map);
+    }
   }, []);
   return null;
 };
-export default LeafletRoutingMachine;
+export default LeafletRoutingMachinec;

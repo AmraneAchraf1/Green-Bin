@@ -23,7 +23,7 @@ function calculateTime(distance) {
 export const prevar = (bins) =>{
     const distanceMatrix = [];
     const timeMatrix = [];
-    const sizeMatix = [];
+    const sizeMatrix = [];
     for (let i = 0; i < bins.length; i++) {
         const rowDistance = [];
         const rowTime = [];
@@ -32,17 +32,19 @@ export const prevar = (bins) =>{
                 rowDistance.push(0);
                 rowTime.push(0);
             } else {
-                const distance = calcudis(bins[i].lat, bins[i].lng, bins[j].lat, bins[j].lng);
+                const distance = calcudis(bins[i].latitude, bins[i].longitude, bins[j].latitude, bins[j].longitude);
                 const time = calculateTime(distance);
                 rowDistance.push(distance);
                 rowTime.push(time);
             }
         }
-        sizeMatix.push(bins[i].size)
+        
+        sizeMatrix.push(bins[i].status);
         distanceMatrix.push(rowDistance);
         timeMatrix.push(rowTime);
 
     }
+    console.log(sizeMatrix);
 
-    return {distanceMatrix, timeMatrix, sizeMatix}
+    return {distanceMatrix, timeMatrix, sizeMatrix}
 }

@@ -5,10 +5,11 @@ import { LuHome } from "react-icons/lu";
 import { MdPersonOutline } from "react-icons/md";
 import { Link } from "react-router-dom";
 import buy from "../data.json"
-import Modal from '../components/Modal'
-import { useDispatch, useSelector,bins } from 'react-redux';
+import Modalc from '../pages/collector/Modalc';
+import { useDispatch, useSelector } from 'react-redux';
+import { userSelectors ,binSelectors} from '../store/selectors';
 
-const Menu=({onNerset,token})=>{
+const Menuc=({onNerset,token})=>{
     const user  = useSelector(state => state.user.data)
     const binsData = useSelector(state => state.bins.data);
     const [isModalOpen, setIsModalOpen] = useState(false)
@@ -34,10 +35,10 @@ const Menu=({onNerset,token})=>{
         <div className='berger'> 
         <div className={`animated-component ${isVisible ? 'show' : ''}`}>
         <section className='mod'>
-            <Modal
+            <Modalc
                 isModalOpen={isModalOpen}
                 onClose={closeModal}
-                token={token}
+              
                 />
         </section>  
         </div>
@@ -46,7 +47,7 @@ const Menu=({onNerset,token})=>{
             <ul className="list">
                 <li ><LuHome className="icon1"/></li>
                 <li><img src={img2} alt="" className="search" onClick={() => {/**/openModal(buy);toggleVisibility();onNerset();}} /></li>
-                <li><Link to="/profile"><MdPersonOutline className="icon"/></Link></li>
+                <li><Link to="/profilec"><MdPersonOutline className="icon"/></Link></li>
             </ul>
         </div>
            
@@ -55,4 +56,4 @@ const Menu=({onNerset,token})=>{
         </>
     )
 }
-export default Menu;
+export default Menuc;
